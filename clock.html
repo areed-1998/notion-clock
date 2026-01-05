@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimal Clock</title>
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #3f3431;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Century Gothic", "Futura", "Avenir", Arial, sans-serif;
+      color: #ffffff;
+    }
+
+    .clock {
+      text-align: center;
+    }
+
+    .time-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+    }
+
+    .time {
+      font-size: 120px; /* BIGGER time */
+      font-weight: 400;
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+
+    .ampm {
+      font-size: 52px;
+      font-weight: 400;
+      margin-left: 16px;
+      letter-spacing: 1px;
+    }
+
+    .date {
+      margin-top: 18px;
+      font-size: 26px; /* smaller than time */
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="time-row">
+      <div class="time" id="time">11:33</div>
+      <div class="ampm" id="ampm">am</div>
+    </div>
+    <div class="date" id="date">Monday, January 5</div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const ampm = hours >= 12 ? "pm" : "am";
+
+      hours = hours % 12 || 12;
+
+      document.getElementById("time").textContent = `${hours}:${minutes}`;
+      document.getElementById("ampm").textContent = ampm;
+
+      document.getElementById("date").textContent =
+        now.toLocaleDateString(undefined, {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+        });
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
+
